@@ -9,7 +9,7 @@
 - https://www.pubnub.com/blog/java-websocket-programming-with-android-and-spring-boot/ -> 안드로이드 웹소켓 통신
 - https://victorywskim.tistory.com/14 -> 안드로이드 동적버튼 생성하기
 - https://csjung.tistory.com/7 -> View의 계층 구조
-- https://www.tabnine.com/code/java/methods/android.widget.LinearLayout/addView -> How to useaddViewmethodinandroid.widget.LinearLayout
+- https://www.tabnine.com/code/java/methods/android.widget.LinearLayout/addView -> How to use add View method in Layout
 - https://lktprogrammer.tistory.com/134 -> 프레임레이아웃 (FrameLayout)
 - https://stackoverflow.com/questions/4051604/android-center-view-in-framelayout-doesnt-work -> FrameLayout gravity 설정
 - https://bilient.tistory.com/2086 -> 테두리 만들기
