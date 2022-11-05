@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -27,7 +28,6 @@ public class selectDivice extends AppCompatActivity {
 
         CreateDeviceLine("1234","야옹이", 5, "on");
         CreateDeviceLine("1254","쫑이", 10, "off");
-        CreateDeviceLine("1234","보리", 6, "on");
 
     }
 
@@ -35,7 +35,7 @@ public class selectDivice extends AppCompatActivity {
         LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear);
 
         FrameLayout f1 = new FrameLayout(this);     //새로운 FrameLayout 생성
-
+        f1.setBackgroundResource(R.drawable.setboxborder1dp);
         TextView deviceTextView = new TextView(this);
         TextView petNameTextView = new TextView(this);
         TextView petAgeTextView = new TextView(this);
