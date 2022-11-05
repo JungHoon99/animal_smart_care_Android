@@ -14,3 +14,4 @@
 - https://stackoverflow.com/questions/4051604/android-center-view-in-framelayout-doesnt-work -> FrameLayout gravity 설정
 - https://bilient.tistory.com/2086 -> 테두리 만들기
 - https://sseong66.tistory.com/46 -> 자바코드에서 색상코드 사용하기
+- https://sd23w.tistory.com/351 -> 동적으로 border주기
