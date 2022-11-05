@@ -47,6 +47,7 @@ public class selectDivice extends AppCompatActivity {
         LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear);
         FrameLayout f1 = new FrameLayout(this);     //새로운 FrameLayout 생성
         TextView deviceTextView = new TextView(this);
+        TextView petNameTextView = new TextView(this);
 
         LinearLayout.LayoutParams fp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,dpToPx(this,90));
         linear.addView(f1,fp);      //LinearLayout에 FrameLayout 추가
