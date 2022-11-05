@@ -24,14 +24,19 @@ public class selectDivice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_divice);
 
-        LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear); //생성한 LinearLayout 가져오기
-
         CreateDeviceLine("1234","야옹이", 5, "on");
         CreateDeviceLine("1254","쫑이", 10, "off");
-
+        CreateDeviceLine("1234","훈", 5, "on");
     }
 
-    public void CreateDeviceLine(String deviceId, String PetName, int PetAge, String State){
+    /**
+     * @apiNote this function is Create FrameLayout and add to LinearLayout
+     * @param deviceId String
+     * @param PetName String
+     * @param PetAge Integer
+     * @param State String
+     */
+    private void CreateDeviceLine(String deviceId, String PetName, int PetAge, String State){
         LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear);
 
         FrameLayout f1 = new FrameLayout(this);     //새로운 FrameLayout 생성
@@ -46,6 +51,9 @@ public class selectDivice extends AppCompatActivity {
         petAgeTextView.setText(Integer.toString(PetAge));
         connectButton.setText("connect");
 
+        deviceTextView.setTextSize(20.0F);
+        petNameTextView.setTextSize(20.0F);
+        petAgeTextView.setTextSize(20.0F);
 
         FrameLayout.LayoutParams deviceTextViewParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
         FrameLayout.LayoutParams petNameTextViewParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -64,7 +72,6 @@ public class selectDivice extends AppCompatActivity {
 
         LinearLayout.LayoutParams fp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,dpToPx(this,90));
         linear.addView(f1,fp);      //LinearLayout에 FrameLayout 추가
-
     }
 
     /**
