@@ -20,14 +20,14 @@ public class putNextPageLinstener implements View.OnClickListener{
 
     @Override
     public void onClick(android.view.View view){
-        if(key.length!=value.length){
+        if(this.key.length!=this.value.length){
             System.out.println("Your not give Same Length Data");
             return;
         }
 
         Intent intent = new Intent(this.activ.getApplicationContext() , this.nextPage);
-        for(int i=0; i<key.length;i++){
-            intent.putExtra(key[i], value[i]);
+        for(int i=0; i<this.key.length;i++){
+            intent.putExtra(this.key[i], this.value[i]);
         }
         this.activ.startActivity(intent);
     }
