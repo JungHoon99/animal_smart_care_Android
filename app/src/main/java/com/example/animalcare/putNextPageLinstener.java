@@ -29,7 +29,7 @@ public class putNextPageLinstener implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(android.view.View view){
+    public void onClick(View view){
         if(this.key.length!=this.value.length){
             System.out.println("Your not give Same Length Data");
             return;

@@ -2,9 +2,11 @@ package com.example.animalcare;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.net.URI;
@@ -14,11 +16,18 @@ import tech.gusavila92.websocketclient.WebSocketClient;
 
 public class MainActivity extends AppCompatActivity {
     private WebSocketClient webSocketClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //가로 모드 화면 고정
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createWebSocketClient();
+        Button timeButton = (Button) findViewById(R.id.feedTimrBtn);
+        timeButton.setOnClickListener(new putNextPageLinstener(this, FeedTimeActivity.class,
+                new String[]{"deviceId"},
+                new String[]{getIntent().getStringExtra("deviceId")}
+        ));
+        //createWebSocketClient();
     }
 
     private void createWebSocketClient() {

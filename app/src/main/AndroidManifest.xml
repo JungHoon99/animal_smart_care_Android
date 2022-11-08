@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimalCare">
         <activity
+            android:name=".FeedTimeActivity"
+            android:exported="false" />
+        <activity
             android:name=".selectDivice"
             android:exported="false" />
         <activity

@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="720dp"
-        android:layout_height="280dp"
+        android:layout_height="290dp"
         android:src="@drawable/error_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"

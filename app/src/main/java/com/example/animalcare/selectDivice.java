@@ -27,7 +27,7 @@ public class selectDivice extends AppCompatActivity {
 
         AddDeviceLine("1234","야옹이", 5, "on");
         AddDeviceLine("1254","쫑이", 10, "off");
-        AddDeviceLine("1234","훈", 5, "on");
+        AddDeviceLine("1234","훈", 24, "on");
     }
 
     /**
@@ -51,7 +51,7 @@ public class selectDivice extends AppCompatActivity {
         connectButton.setOnClickListener(new putNextPageLinstener(
                 this,
                 MainActivity.class,
-                new String[]{"diviceid","petName","petAge"},
+                new String[]{"deviceId","petName","petAge"},
                 new String[]{deviceId,PetName,Integer.toString(PetAge)}
         ));
 
@@ -95,7 +95,7 @@ public class selectDivice extends AppCompatActivity {
      * @apiNote dp to Pixcel convert function
      * @param context
      * @param dp
-     * @returns px
+     * @returns px : int
      */
     public int dpToPx(Context context, float dp){
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
