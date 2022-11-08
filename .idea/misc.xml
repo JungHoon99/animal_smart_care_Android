@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cndls/AndroidStudioProjects/AnimalCare/app/src/main/res/drawable/setboxborder1dp.xml" value="0.2575" />
+        <entry key="..\:/Users/cndls/AndroidStudioProjects/AnimalCare/app/src/main/res/drawable/table_set.xml" value="0.2575" />
+        <entry key="..\:/Users/cndls/AndroidStudioProjects/AnimalCare/app/src/main/res/layout/activity_feed_time2.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cndls/AndroidStudioProjects/AnimalCare/app/src/main/res/layout/activity_login.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/cndls/AndroidStudioProjects/AnimalCare/app/src/main/res/layout/activity_main.xml" value="0.4" />
-        <entry key="..\:/Users/cndls/AndroidStudioProjects/AnimalCare/app/src/main/res/layout/activity_select_divice.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/cndls/AndroidStudioProjects/AnimalCare/app/src/main/res/layout/activity_select_divice.xml" value="0.264" />
         <entry key="..\:/Users/cndls/AndroidStudioProjects/AnimalCare/app/src/main/res/layout/activity_sginin.xml" value="0.317481884057971" />
       </map>
     </option>

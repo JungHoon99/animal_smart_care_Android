@@ -5,12 +5,22 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * @apiNote This calss is Next Page Listener and new create ex) new putNextPageLinstener(this, Activity.class, String[], String[])
+ */
 public class putNextPageLinstener implements View.OnClickListener{
     private AppCompatActivity activ;
     private Class nextPage;
     private String key[];
     private String value[];
 
+    /**
+     *
+     * @param activ : AppCompatActivity
+     * @param nextPage : Class
+     * @param key : String[]
+     * @param value :   String[]
+     */
     public putNextPageLinstener(AppCompatActivity activ, Class nextPage, String key[], String value[]){
         this.activ = activ;
         this.nextPage = nextPage;

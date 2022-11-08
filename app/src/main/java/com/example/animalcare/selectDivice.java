@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * @apiNote This class can select, delete, create and view devices.
+ * @apiNote This class can select, delete, create and view devices List.
  */
 public class selectDivice extends AppCompatActivity {
 
@@ -24,9 +24,9 @@ public class selectDivice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_divice);
 
-        CreateDeviceLine("1234","야옹이", 5, "on");
-        CreateDeviceLine("1254","쫑이", 10, "off");
-        CreateDeviceLine("1234","훈", 5, "on");
+        AddDeviceLine("1234","야옹이", 5, "on");
+        AddDeviceLine("1254","쫑이", 10, "off");
+        AddDeviceLine("1234","훈", 5, "on");
     }
 
     /**
@@ -36,24 +36,33 @@ public class selectDivice extends AppCompatActivity {
      * @param PetAge Integer
      * @param State String
      */
-    private void CreateDeviceLine(String deviceId, String PetName, int PetAge, String State){
+    private void AddDeviceLine(String deviceId, String PetName, int PetAge, String State){
         LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear);
 
         FrameLayout f1 = new FrameLayout(this);     //새로운 FrameLayout 생성
-        f1.setBackgroundResource(R.drawable.setboxborder1dp);
+        f1.setBackgroundResource(R.drawable.setboxborder1dp);   //FrameLayout에 네모 생성
         TextView deviceTextView = new TextView(this);
         TextView petNameTextView = new TextView(this);
         TextView petAgeTextView = new TextView(this);
+        TextView stateTextView = new TextView(this);
         Button connectButton = new Button(this);
 
         deviceTextView.setText(deviceId);
         petNameTextView.setText(PetName);
         petAgeTextView.setText(Integer.toString(PetAge));
+        stateTextView.setText(State);
         connectButton.setText("connect");
 
         deviceTextView.setTextSize(20.0F);
         petNameTextView.setTextSize(20.0F);
         petAgeTextView.setTextSize(20.0F);
+        stateTextView.setTextSize(20.0F);
+
+        deviceTextView.setGravity(Gravity.CENTER);
+        petNameTextView.setGravity(Gravity.CENTER);
+        petAgeTextView.setGravity(Gravity.CENTER);
+        connectButton.setGravity(Gravity.CENTER);
+
 
         FrameLayout.LayoutParams deviceTextViewParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
         FrameLayout.LayoutParams petNameTextViewParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
