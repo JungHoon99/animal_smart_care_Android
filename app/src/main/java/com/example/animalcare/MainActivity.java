@@ -14,6 +14,9 @@ import java.net.URISyntaxException;
 
 import tech.gusavila92.websocketclient.WebSocketClient;
 
+/**
+ * ToDo :   이미지 받아서 업데이트
+ */
 public class MainActivity extends AppCompatActivity {
     private WebSocketClient webSocketClient;
 
