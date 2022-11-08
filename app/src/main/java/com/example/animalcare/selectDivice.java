@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -46,6 +47,13 @@ public class selectDivice extends AppCompatActivity {
         TextView petAgeTextView = new TextView(this);
         TextView stateTextView = new TextView(this);
         Button connectButton = new Button(this);
+
+        connectButton.setOnClickListener(new putNextPageLinstener(
+                this,
+                MainActivity.class,
+                new String[]{"diviceid","petName","petAge"},
+                new String[]{deviceId,PetName,Integer.toString(PetAge)}
+        ));
 
         deviceTextView.setText(deviceId);
         petNameTextView.setText(PetName);
