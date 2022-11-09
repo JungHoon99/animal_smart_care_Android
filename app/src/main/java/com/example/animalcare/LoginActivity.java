@@ -42,12 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         wb.connect();
         wb.send("hi");
         sleep(100);
-        System.out.println("fdsaf"+wb.img);
+        System.out.println("fdsddaaf"+wb.img);
         wb.send("his");
         sleep(100);
-        System.out.println("fdsaf"+wb.img);
+        System.out.println("fdssaf"+wb.img);
         wb.send("hiss");
         sleep(100);
-        System.out.println("fdsaf"+wb.img);
+        System.out.println("fdsssaf"+wb.img);
+
     }
 }
