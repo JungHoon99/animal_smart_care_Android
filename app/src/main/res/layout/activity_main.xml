@@ -10,13 +10,12 @@
         android:id="@+id/imageView"
         android:layout_width="720dp"
         android:layout_height="290dp"
-        android:src="@drawable/error_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
+        tools:srcCompat="@tools:sample/avatars"/>
+    <!--android:src="@drawable/error_image"-->
     <Button
         android:id="@+id/feedBtn"
         android:layout_width="wrap_content"

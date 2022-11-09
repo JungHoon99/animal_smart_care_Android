@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{"deviceId"},
                 new String[]{getIntent().getStringExtra("deviceId")}
         ));
-        //createWebSocketClient();
+        //createWebSocketClient("ws://3.36.127.141:57487/");
     }
 
-    private void createWebSocketClient() {
+    private void createWebSocketClient(String urlink) {
         URI uri;
         try {
             // Connect to local host
-            uri = new URI("ws://3.36.127.141:57487/");
+            uri = new URI(urlink);
         }
         catch (URISyntaxException e) {
             e.printStackTrace();
