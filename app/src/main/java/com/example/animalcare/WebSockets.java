@@ -8,13 +8,15 @@ import tech.gusavila92.websocketclient.WebSocketClient;
 
 public class WebSockets extends WebSocketClient {
 
+    String img;
     /**
      * Initialize all the variables
      *
      * @param uri URI of the WebSocket server
      */
-    public WebSockets(URI uri) {
+    public WebSockets(URI uri,String a) {
         super(uri);
+        img=a;
     }
 
     @Override
@@ -26,6 +28,7 @@ public class WebSockets extends WebSocketClient {
     public void onTextReceived(String message) {
         Log.i("WebSocket", "Message received");
         Log.e("Web ", message);
+        img = message;
     }
 
     @Override

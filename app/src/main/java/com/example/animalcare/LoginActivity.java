@@ -35,11 +35,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private void connectSocket(String link) throws Exception{
         URI uri =new URI(link);
-        final String GetData = null;
-        WebSockets wb = new WebSockets(uri);
+        String GetData = null;
+        WebSockets wb = new WebSockets(uri,GetData);
         String s = new String();
 
         wb.connect();
         wb.send("hi");
+        sleep(100);
+        System.out.println("fdsaf"+wb.img);
+        wb.send("his");
+        sleep(100);
+        System.out.println("fdsaf"+wb.img);
+        wb.send("hiss");
+        sleep(100);
+        System.out.println("fdsaf"+wb.img);
     }
 }
