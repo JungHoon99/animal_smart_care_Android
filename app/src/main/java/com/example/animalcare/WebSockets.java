@@ -8,7 +8,7 @@ import tech.gusavila92.websocketclient.WebSocketClient;
 
 public class WebSockets extends WebSocketClient {
 
-    String img;
+    String data;
     /**
      * Initialize all the variables
      *
@@ -16,7 +16,7 @@ public class WebSockets extends WebSocketClient {
      */
     public WebSockets(URI uri,String a) {
         super(uri);
-        img=a;
+        data=a;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class WebSockets extends WebSocketClient {
     public void onTextReceived(String message) {
         Log.i("WebSocket", "Message received");
         Log.e("Web ", message);
-        img = message;
+        data = message;
     }
 
     @Override
