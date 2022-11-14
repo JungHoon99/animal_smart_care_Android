@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -27,7 +29,9 @@ public class SgininActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sginin);
         EditText idEdit = (EditText) findViewById(R.id.editTextTextID);
         EditText pwCheckEdit = (EditText) findViewById(R.id.editTextTextPassword3);
+        Button IdCheck = (Button) findViewById(R.id.idCheckButton);
         pwCheckEdit.setOnKeyListener(new EditMessageOnKeyListener());
+        IdCheck.setOnClickListener(new idCheckButtonListener());
     }
 
     class idCheckButtonListener implements View.OnClickListener{
@@ -36,21 +40,24 @@ public class SgininActivity extends AppCompatActivity {
         public void onClick(View view) {
             URI uri = null;
             try {
-                uri = new URI("ws://127.15.12.1:50512");
+                uri = new URI("ws://13.124.160.248:50394/");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
             WebSockets wb = new WebSockets(uri,"None");
             wb.connect();
             wb.send("{\"code\":\"phone\"}");
+            while(wb.data.equals("None")){sleep(100);}
 
             EditText idEdit = findViewById(R.id.editTextTextID);
 
-            while(wb.data.equals("None")){sleep(100);}
+            sleep(100);
             wb.data = "None";
-            wb.send("{\"kind\":\"phone\", \"message\" : \"select count(*) from user where user_id = \""+idEdit.getText()+"\"}");
+            wb.send("{\"kind\":\"select\", \"message\" : \"select count(*) from user where user_id = '"+idEdit.getText()+"'\"}");
             while(wb.data.equals("None")){sleep(100);}
-            System.out.print(wb.data);
+            Log.e("Get DATA : ", wb.data);
+
+            wb.close();
         }
     }
 
