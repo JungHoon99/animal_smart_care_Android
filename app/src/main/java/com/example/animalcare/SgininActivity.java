@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -22,6 +25,7 @@ import java.net.URISyntaxException;
  */
 public class SgininActivity extends AppCompatActivity {
     int isPwCheck = 0;
+    int isIdCheck = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +51,22 @@ public class SgininActivity extends AppCompatActivity {
             WebSockets wb = new WebSockets(uri,"None");
             wb.connect();
             wb.send("{\"code\":\"phone\"}");
-            while(wb.data.equals("None")){sleep(100);}
 
             EditText idEdit = findViewById(R.id.editTextTextID);
 
-            sleep(100);
+            while(wb.data.equals("None")){sleep(10);}
             wb.data = "None";
             wb.send("{\"kind\":\"select\", \"message\" : \"select count(*) from user where user_id = '"+idEdit.getText()+"'\"}");
-            while(wb.data.equals("None")){sleep(100);}
+            while(wb.data.equals("None")){sleep(10);}
             Log.e("Get DATA : ", wb.data);
-
+            JSONObject json = null;
+            try {
+                json = new JSONObject(wb.data);
+                Log.e("PARSE ", String.valueOf(json.getJSONArray("message").getJSONObject(0).getString("count(*)")));
+                isIdCheck = Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             wb.close();
         }
     }

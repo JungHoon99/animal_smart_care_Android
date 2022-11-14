@@ -16,6 +16,7 @@ public class WebSockets extends WebSocketClient {
      */
     public WebSockets(URI uri,String a) {
         super(uri);
+        data = a;
     }
 
     @Override
