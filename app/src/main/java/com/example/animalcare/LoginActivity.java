@@ -27,11 +27,11 @@ public class LoginActivity extends AppCompatActivity {
         Button SignupButton =(Button) findViewById(R.id.signup);
         SignupButton.setOnClickListener(new gotoPageListener(this, SgininActivity.class));
 
-        try {
-            wb = connectSocket("ws://13.124.160.248:50394/");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            wb = connectSocket("ws://13.124.160.248:50394/");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     private WebSockets connectSocket(String link) throws Exception{
