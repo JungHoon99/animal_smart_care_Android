@@ -95,6 +95,9 @@ public class SgininActivity extends AppCompatActivity {
             if(keyCode ==KeyEvent.KEYCODE_DEL){
                 String pw = String.valueOf(pwEdit.getText());
                 String pwCheck = String.valueOf(pwCheckEdit.getText());
+                if(pwCheck.length() == 0 ){
+                    return false;
+                }
                 if(pw.equals(pwCheck.substring(0,pwCheck.length()-1))){
                     pwCheckText.setText("비밀번호가 일치합니다.");
                     pwCheckText.setTextColor(Color.GREEN);
