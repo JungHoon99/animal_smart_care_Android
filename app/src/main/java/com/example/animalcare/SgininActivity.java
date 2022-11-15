@@ -4,6 +4,7 @@ import static android.os.SystemClock.sleep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,8 +37,52 @@ public class SgininActivity extends AppCompatActivity {
         EditText idEdit = (EditText) findViewById(R.id.editTextTextID);
         EditText pwCheckEdit = (EditText) findViewById(R.id.editTextTextPassword3);
         Button IdCheck = (Button) findViewById(R.id.idCheckButton);
+        Button button  = (Button) findViewById(R.id.idCheckButton3);
+        button.setOnClickListener(new aSignInfoButtonListener());
         pwCheckEdit.setOnKeyListener(new EditMessageOnKeyListener());
         IdCheck.setOnClickListener(new idCheckButtonListener());
+    }
+
+    class aSignInfoButtonListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            URI uri = null;
+            try {
+                uri = new URI("ws://13.124.160.248:50394/");
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            WebSockets wb = new WebSockets(uri,"None");
+            wb.connect();
+            wb.send("{\"code\":\"phone\"}");
+
+            EditText idEdit = findViewById(R.id.editTextTextID);
+            EditText pwEdit = (EditText) findViewById(R.id.editTextTextPassword3);
+            EditText nameEdit = (EditText) findViewById(R.id.editTextTextPersonName3);
+
+            Log.e(String.valueOf(isPwCheck), String.valueOf(isIdCheck));
+
+            if(isPwCheck==0 || isIdCheck==1){
+                return;
+            }
+
+            while(wb.data.equals("None")){sleep(10);}
+            wb.data = "None";
+            wb.send("{\"kind\":\"insert\", \"message\" : \"insert into user (user_id, pw, name) values('"+idEdit.getText()+"', '"+pwEdit.getText()+"', '"+ nameEdit.getText() +"')\"}");
+            while(wb.data.equals("None")){sleep(10);}
+            Log.e("Get DATA : ", wb.data);
+            JSONObject json = null;
+            try {
+                json = new JSONObject(wb.data);
+                Intent intent = new Intent(getApplicationContext() , LoginActivity.class);
+                startActivity(intent);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            wb.close();
+        }
     }
 
     class idCheckButtonListener implements View.OnClickListener{
