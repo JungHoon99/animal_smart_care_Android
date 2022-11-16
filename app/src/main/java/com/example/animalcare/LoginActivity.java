@@ -4,11 +4,18 @@ import static android.os.SystemClock.sleep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * TODO : Websocket을 활용해서 Login 기능 구현
@@ -26,23 +33,44 @@ public class LoginActivity extends AppCompatActivity {
 
         Button SignupButton =(Button) findViewById(R.id.signup);
         SignupButton.setOnClickListener(new gotoPageListener(this, SgininActivity.class));
-
-//        try {
-//            wb = connectSocket("ws://13.124.160.248:50394/");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
-    private WebSockets connectSocket(String link) throws Exception{
-        URI uri =new URI(link);
-        WebSockets wb = new WebSockets(uri,"None");
+    class aSignInfoButtonListener implements View.OnClickListener{
 
-        wb.connect();
-        wb.send("{\"code\":\"phone\"}");
+        @Override
+        public void onClick(View view) {
+            URI uri = null;
+            try {
+                uri = new URI("ws://13.124.160.248:50394/");
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            WebSockets wb = new WebSockets(uri,"None");
+            wb.connect();
+            wb.send("{\"code\":\"phone\"}");
 
-        while(wb.data.equals("None")){sleep(100);}
+            EditText idEditText = (EditText) findViewById(R.id.editTextTextPersonName);
+            EditText pwEditText = (EditText) findViewById(R.id.editTextTextPassword2);
 
-        return wb;
+            while(wb.data.equals("None")){sleep(10);}
+            wb.data = "None";
+            wb.send("{\"kind\":\"select\", \"message\" : \"select count(*) from user where user_id = '"+idEditText.getText()+"' and pw = '"+pwEditText.getText()+"'\"}");
+            while(wb.data.equals("None")){sleep(10);}
+            Log.e("Get DATA : ", wb.data);
+
+            JSONObject json = null;
+            try {
+                json = new JSONObject(wb.data);
+                if(Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)")) == 1) {
+                    wb.close();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+        }
+            wb.close();
+        }
     }
 }
