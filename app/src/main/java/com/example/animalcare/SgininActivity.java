@@ -23,8 +23,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- TODO :   SignUp Page 완전 기능 구현
- *          Websocket을 활용해서 SignUp 기능 구현
  */
 public class SgininActivity extends AppCompatActivity {
     int isPwCheck = 0;

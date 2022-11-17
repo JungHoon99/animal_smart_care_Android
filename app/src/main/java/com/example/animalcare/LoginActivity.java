@@ -17,9 +17,6 @@ import org.json.JSONObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- * TODO : Websocket을 활용해서 Login 기능 구현
- */
 public class LoginActivity extends AppCompatActivity {
     WebSockets wb;
 
@@ -29,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button LoginButton = (Button) findViewById(R.id.Login);
-        LoginButton.setOnClickListener(new gotoPageListener(this, selectDivice.class));
+        LoginButton.setOnClickListener(new aSignInfoButtonListener());
 
         Button SignupButton =(Button) findViewById(R.id.signup);
         SignupButton.setOnClickListener(new gotoPageListener(this, SgininActivity.class));
@@ -63,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 json = new JSONObject(wb.data);
                 if(Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)")) == 1) {
                     wb.close();
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), selectDivice.class);
                     startActivity(intent);
                 }
 
