@@ -4,12 +4,15 @@ import static android.os.SystemClock.sleep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,11 +64,23 @@ public class LoginActivity extends AppCompatActivity {
                 if(Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)")) == 1) {
                     wb.close();
                     Intent intent = new Intent(getApplicationContext(), selectDivice.class);
+                    intent.putExtra("id", idEditText.getText());
                     startActivity(intent);
+                }
+                else{
+                    AlertDialog.Builder myAlertBuilder = new AlertDialog.Builder(    LoginActivity.this);
+                    // alert의 title과 Messege 세팅
+                    myAlertBuilder.setTitle("Try Again Fixed it");
+                    myAlertBuilder.setPositiveButton("Ok",new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog,int which){}
+                        }
+                    );
+                    myAlertBuilder.show();
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
+
         }
             wb.close();
         }

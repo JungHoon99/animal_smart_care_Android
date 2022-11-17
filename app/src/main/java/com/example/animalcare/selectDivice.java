@@ -4,6 +4,7 @@ import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.TextView;
  * ToDo :   WebSocket을 통해 User에 Device data 기져오기
  *          가져온데이터를 AddDeviceLine함수를 사용해서 데이터 뿌리기
  *          connect 버튼을 누르면 putExtra를 활용해서 MainActivity에 device 정보 전달
+ *          device 추가하기 버튼을 만들기
  */
 
 /**
@@ -34,7 +36,19 @@ public class selectDivice extends AppCompatActivity {
         AddDeviceLine("1234","야옹이", 5, "on");
         AddDeviceLine("1254","쫑이", 10, "off");
         AddDeviceLine("1234","훈", 24, "on");
+        deviceAddButton();
     }
+
+     private void deviceAddButton(){
+         LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear);
+         Button deviceAddButton = new Button(this);
+         deviceAddButton.setText("+");
+         deviceAddButton.setTextSize(30.0F);
+         Intent intent = getIntent();
+         deviceAddButton.setOnClickListener(new putNextPageLinstener(this, createDevice.class, new String[]{"id"},new String[]{intent.getStringExtra("id")}));
+         FrameLayout.LayoutParams deviceAddButtonParams = new FrameLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,dpToPx(this,90));
+         linear.addView(deviceAddButton,deviceAddButtonParams);
+     }
 
     /**
      * @apiNote this function is Create FrameLayout and add to LinearLayout

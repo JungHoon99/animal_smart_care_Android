@@ -4,6 +4,7 @@ import static android.os.SystemClock.sleep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -62,6 +63,11 @@ public class SgininActivity extends AppCompatActivity {
             Log.e(String.valueOf(isPwCheck), String.valueOf(isIdCheck));
 
             if(isPwCheck==0 || isIdCheck==1){
+                AlertDialog.Builder myAlertBuilder =
+                        new AlertDialog.Builder(SgininActivity.this);
+                // alert의 title과 Messege 세팅
+                myAlertBuilder.setTitle("Try Again \n Fixed it");
+                myAlertBuilder.show();
                 return;
             }
 
@@ -78,6 +84,11 @@ public class SgininActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                AlertDialog.Builder myAlertBuilder =
+                        new AlertDialog.Builder(SgininActivity.this);
+                // alert의 title과 Messege 세팅
+                myAlertBuilder.setTitle("Try Again \n Fixed it");
+                myAlertBuilder.show();
             }
             wb.close();
         }
@@ -111,6 +122,11 @@ public class SgininActivity extends AppCompatActivity {
                 isIdCheck = Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)"));
             } catch (JSONException e) {
                 e.printStackTrace();
+                AlertDialog.Builder myAlertBuilder =
+                        new AlertDialog.Builder(SgininActivity.this);
+                // alert의 title과 Messege 세팅
+                myAlertBuilder.setTitle("Duplicate");
+                myAlertBuilder.show();
             }
             wb.close();
         }
