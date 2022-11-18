@@ -5,6 +5,7 @@ import static android.os.SystemClock.sleep;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,6 +60,10 @@ public class createDevice extends AppCompatActivity {
                         new AlertDialog.Builder(createDevice.this);
                 // alert의 title과 Messege 세팅
                 myAlertBuilder.setTitle("Try Again \n Fixed it");
+                myAlertBuilder.setPositiveButton("Ok",new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog,int which){}
+                        }
+                );
                 myAlertBuilder.show();
                 return;
             }
@@ -71,6 +76,18 @@ public class createDevice extends AppCompatActivity {
             JSONObject json = null;
             try {
                 json = new JSONObject(wb.data);
+                if(json.getInt("message") != 1){
+                    AlertDialog.Builder myAlertBuilder =
+                            new AlertDialog.Builder(createDevice.this);
+                    // alert의 title과 Messege 세팅
+                    myAlertBuilder.setTitle("Try Again \n Fixed it");
+                    myAlertBuilder.setPositiveButton("Ok",new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialog,int which){}
+                            }
+                    );
+                    myAlertBuilder.show();
+                    return;
+                }
                 Intent intent = new Intent(getApplicationContext() , selectDivice.class);
                 startActivity(intent);
 
@@ -105,9 +122,10 @@ public class createDevice extends AppCompatActivity {
             JSONObject json = null;
             try {
                 json = new JSONObject(wb.data);
-                Log.e("PARSE ", String.valueOf(json.getJSONArray("message").getJSONObject(0).getString("count(*)")));
+                Log.e("PARSE ", json.getJSONArray("message").getJSONObject(0).getString("count(*)"));
                 isDeviceIdCheck = Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)"));
             } catch (JSONException e) {
+                Log.e("Error","this Page Error");
             }
             wb.close();
         }
