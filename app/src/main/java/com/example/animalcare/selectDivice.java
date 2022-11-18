@@ -40,12 +40,13 @@ public class selectDivice extends AppCompatActivity {
     }
 
      private void deviceAddButton(){
+         Intent intents = getIntent();
+         String getId = String.valueOf(intents.getStringExtra("id"));
          LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear);
          Button deviceAddButton = new Button(this);
          deviceAddButton.setText("+");
          deviceAddButton.setTextSize(30.0F);
-         Intent intent = getIntent();
-         deviceAddButton.setOnClickListener(new putNextPageLinstener(this, createDevice.class, new String[]{"id"},new String[]{intent.getStringExtra("id")}));
+         deviceAddButton.setOnClickListener(new putNextPageLinstener(this, createDevice.class, new String[]{"id"},new String[]{getId}));
          FrameLayout.LayoutParams deviceAddButtonParams = new FrameLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,dpToPx(this,90));
          linear.addView(deviceAddButton,deviceAddButtonParams);
      }

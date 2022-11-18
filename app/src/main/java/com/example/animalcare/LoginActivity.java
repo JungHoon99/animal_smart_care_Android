@@ -62,10 +62,11 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 json = new JSONObject(wb.data);
                 if(Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)")) == 1) {
-                    wb.close();
                     Intent intent = new Intent(getApplicationContext(), selectDivice.class);
-                    intent.putExtra("id", idEditText.getText());
+                    String getTexts = String.valueOf(idEditText.getText());
+                    intent.putExtra("id", getTexts);
                     startActivity(intent);
+                    wb.close();
                 }
                 else{
                     AlertDialog.Builder myAlertBuilder = new AlertDialog.Builder(    LoginActivity.this);
