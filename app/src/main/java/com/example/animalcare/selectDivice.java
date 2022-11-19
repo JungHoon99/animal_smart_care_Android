@@ -1,26 +1,35 @@
 package com.example.animalcare;
 
-import androidx.annotation.ColorInt;
+import static android.os.SystemClock.sleep;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/**
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+/*
  * ToDo :   WebSocket을 통해 User에 Device data 기져오기
  *          가져온데이터를 AddDeviceLine함수를 사용해서 데이터 뿌리기
  *          connect 버튼을 누르면 putExtra를 활용해서 MainActivity에 device 정보 전달
- *          device 추가하기 버튼을 만들기
  */
 
 /**
@@ -33,10 +42,45 @@ public class selectDivice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_divice);
 
-        AddDeviceLine("1234","야옹이", 5, "on");
-        AddDeviceLine("1254","쫑이", 10, "off");
-        AddDeviceLine("1234","훈", 24, "on");
+        MakeDeviceLine();
         deviceAddButton();
+    }
+
+    private void MakeDeviceLine(){
+        URI uri = null;
+        Intent intents = getIntent();
+        String getId = String.valueOf(intents.getStringExtra("id"));
+        try {
+            uri = new URI("ws://3.39.204.82:59552");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        WebSockets wb = new WebSockets(uri,"None");
+        wb.connect();
+        wb.send("{\"code\":\"phone\"}");
+
+        while(wb.data.equals("None")){sleep(10);}
+        wb.data = "None";
+        wb.send("{\"kind\":\"select\", \"message\" : \"select * from register where user_id = '"+getId+"'\"}");
+        while(wb.data.equals("None")){sleep(10);}
+        Log.e("Get DATA : ", wb.data);
+
+        JSONObject json = null;
+        JSONArray deviceArray;
+
+        try {
+            json = new JSONObject(wb.data);
+            deviceArray = json.getJSONArray("message");
+            for(int i=0; i<deviceArray.length(); i++){
+                json = deviceArray.getJSONObject(0);
+                AddDeviceLine(json.getString("device_id"),json.getString("pet_name"), json.getInt("pet_age"), "on");
+            }
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
+        }
+
+        wb.close();
     }
 
      private void deviceAddButton(){
@@ -114,8 +158,8 @@ public class selectDivice extends AppCompatActivity {
 
     /**
      * @apiNote dp to Pixcel convert function
-     * @param context
-     * @param dp
+     * @param context : Context
+     * @param dp : float
      * @returns px : int
      */
     public int dpToPx(Context context, float dp){

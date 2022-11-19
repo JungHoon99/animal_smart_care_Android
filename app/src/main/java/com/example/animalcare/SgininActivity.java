@@ -48,7 +48,7 @@ public class SgininActivity extends AppCompatActivity {
         public void onClick(View view) {
             URI uri = null;
             try {
-                uri = new URI("ws://13.124.160.248:50394/");
+                uri = new URI("ws://3.39.204.82:59552");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -100,7 +100,7 @@ public class SgininActivity extends AppCompatActivity {
         public void onClick(View view) {
             URI uri = null;
             try {
-                uri = new URI("ws://13.124.160.248:50394/");
+                uri = new URI("ws://3.39.204.82:59552");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }

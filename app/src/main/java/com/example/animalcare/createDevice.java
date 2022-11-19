@@ -40,7 +40,7 @@ public class createDevice extends AppCompatActivity {
             URI uri = null;
 
             try {
-                uri = new URI("ws://13.124.160.248:50394/");
+                uri = new URI("ws://3.39.204.82:59552/");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -73,7 +73,7 @@ public class createDevice extends AppCompatActivity {
                     deviceId.getText()+"', '"+getIntent.getStringExtra("id")+"', '"+ petName.getText() +"', "+petAge.getText()+")\"}");
             while(wb.data.equals("None")){sleep(10);}
             Log.e("Get DATA : ", wb.data);
-            JSONObject json = null;
+            JSONObject json;
             try {
                 json = new JSONObject(wb.data);
                 if(json.getInt("message") != 1){
@@ -104,7 +104,7 @@ public class createDevice extends AppCompatActivity {
         public void onClick(View view) {
             URI uri = null;
             try {
-                uri = new URI("ws://13.124.160.248:50394/");
+                uri = new URI("ws://3.39.204.82:59552/");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -119,7 +119,7 @@ public class createDevice extends AppCompatActivity {
             wb.send("{\"kind\":\"select\", \"message\" : \"select count(*) from device where device_id = '"+idEdit.getText()+"'\"}");
             while(wb.data.equals("None")){sleep(10);}
             Log.e("Get DATA : ", wb.data);
-            JSONObject json = null;
+            JSONObject json;
             try {
                 json = new JSONObject(wb.data);
                 Log.e("PARSE ", json.getJSONArray("message").getJSONObject(0).getString("count(*)"));
