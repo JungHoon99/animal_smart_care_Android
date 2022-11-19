@@ -26,12 +26,6 @@ import org.json.JSONObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/*
- * ToDo :   WebSocket을 통해 User에 Device data 기져오기
- *          가져온데이터를 AddDeviceLine함수를 사용해서 데이터 뿌리기
- *          connect 버튼을 누르면 putExtra를 활용해서 MainActivity에 device 정보 전달
- */
-
 /**
  * @apiNote This class can select, delete, create and view devices List.
  */

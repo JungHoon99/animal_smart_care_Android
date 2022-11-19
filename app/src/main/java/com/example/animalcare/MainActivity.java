@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{"deviceId"},
                 new String[]{getIntent().getStringExtra("deviceId")}
         ));
-        //createWebSocketClient("ws://3.36.127.141:57487/");
+        createWebSocketClient("ws://3.39.204.82:51698/");
     }
 
     private void createWebSocketClient(String urlink) {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onOpen() {
                 Log.i("WebSocket", "Session is starting");
-                webSocketClient.send("Hello World!");
+                webSocketClient.send("{'kind': 1, 'roomNumber' : '1234'}");
             }
 
             @Override
@@ -59,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
-                            //TextView textView = findViewById(R.id.textView);
-                            //textView.setText(message);
+                            Log.e("get Message", message);
                         } catch (Exception e){
                             e.printStackTrace();
                         }
