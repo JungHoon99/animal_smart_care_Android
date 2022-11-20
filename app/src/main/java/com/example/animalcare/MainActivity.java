@@ -3,10 +3,14 @@ package com.example.animalcare;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.net.URI;
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         webSocketClient = new WebSocketClient(uri) {
+            ImageView imageView = (ImageView) findViewById(R.id.imageView);
             @Override
             public void onOpen() {
                 Log.i("WebSocket", "Session is starting");
@@ -53,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextReceived(String s) {
-                Log.i("WebSocket", "Message received");
                 final String message = s;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         try{
-                            Log.e("get Message", message);
+                            byte[] ImageByte = Base64.decode(message,Base64.DEFAULT);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(ImageByte,0,ImageByte.length);
+                            imageView.setImageBitmap(bitmap);
                         } catch (Exception e){
                             e.printStackTrace();
                         }
