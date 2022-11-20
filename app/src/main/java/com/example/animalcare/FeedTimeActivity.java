@@ -13,6 +13,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+/**
+ *  ToDo :  식수 및 사료 제공 시간 설정 db 가져오기
+ *          삭제 기능 만들기
+ */
 public class FeedTimeActivity extends AppCompatActivity {
 
     @Override

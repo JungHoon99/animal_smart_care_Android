@@ -19,7 +19,8 @@ import java.net.URISyntaxException;
 import tech.gusavila92.websocketclient.WebSocketClient;
 
 /**
- * ToDo :   이미지 받아서 업데이트
+ * ToDo :   FeedButton 기능 활성화
+ *          WaterButton 기능 활성화
  */
 public class MainActivity extends AppCompatActivity {
     private WebSocketClient webSocketClient;
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button timeButton = (Button) findViewById(R.id.feedTimrBtn);
+        Button feedButton = (Button) findViewById(R.id.feedBtn);
+        Button waterButton = (Button) findViewById(R.id.waterBtn);
+
         timeButton.setOnClickListener(new putNextPageLinstener(this, FeedTimeActivity.class,
                 new String[]{"deviceId"},
                 new String[]{getIntent().getStringExtra("deviceId")}
