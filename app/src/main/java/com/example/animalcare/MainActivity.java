@@ -39,6 +39,20 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{getIntent().getStringExtra("deviceId")}
         ));
         createWebSocketClient("ws://3.39.204.82:51698/");
+
+        feedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                webSocketClient.send("{'command' : 'feed'}");
+            }
+        });
+
+        waterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                webSocketClient.send("{'command' : 'water'}");
+            }
+        });
     }
 
     private void createWebSocketClient(String urlink) {
