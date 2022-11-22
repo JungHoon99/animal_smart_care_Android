@@ -72,7 +72,6 @@ public class createDevice extends AppCompatActivity {
             wb.send("{\"kind\":\"insert\", \"message\" : \"insert into register (device_id, user_id, pet_name, pet_age) values('"+
                     deviceId.getText()+"', '"+getIntent.getStringExtra("id")+"', '"+ petName.getText() +"', "+petAge.getText()+")\"}");
             while(wb.data.equals("None")){sleep(10);}
-            Log.e("Get DATA : ", wb.data);
             JSONObject json;
             try {
                 json = new JSONObject(wb.data);
@@ -118,11 +117,9 @@ public class createDevice extends AppCompatActivity {
             wb.data = "None";
             wb.send("{\"kind\":\"select\", \"message\" : \"select count(*) from device where device_id = '"+idEdit.getText()+"'\"}");
             while(wb.data.equals("None")){sleep(10);}
-            Log.e("Get DATA : ", wb.data);
             JSONObject json;
             try {
                 json = new JSONObject(wb.data);
-                Log.e("PARSE ", json.getJSONArray("message").getJSONObject(0).getString("count(*)"));
                 isDeviceIdCheck = Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)"));
             } catch (JSONException e) {
                 Log.e("Error","this Page Error");

@@ -111,13 +111,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCloseReceived() {
                 Log.i("WebSocket", "Closed ");
-                System.out.println("onCloseReceived");
             }
         };
 
-        webSocketClient.setConnectTimeout(10000);
-        webSocketClient.setReadTimeout(60000);
-        webSocketClient.enableAutomaticReconnection(5000);
+        webSocketClient.setConnectTimeout(1000);
+        webSocketClient.setReadTimeout(600000);
+        webSocketClient.enableAutomaticReconnection(50000);
         webSocketClient.connect();
     }
 }

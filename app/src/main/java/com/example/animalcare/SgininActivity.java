@@ -60,8 +60,6 @@ public class SgininActivity extends AppCompatActivity {
             EditText pwEdit = (EditText) findViewById(R.id.editTextTextPassword3);
             EditText nameEdit = (EditText) findViewById(R.id.editTextTextPersonName3);
 
-            Log.e(String.valueOf(isPwCheck), String.valueOf(isIdCheck));
-
             if(isPwCheck==0 || isIdCheck==1){
                 AlertDialog.Builder myAlertBuilder =
                         new AlertDialog.Builder(SgininActivity.this);
@@ -75,7 +73,6 @@ public class SgininActivity extends AppCompatActivity {
             wb.data = "None";
             wb.send("{\"kind\":\"insert\", \"message\" : \"insert into user (user_id, pw, name) values('"+idEdit.getText()+"', '"+pwEdit.getText()+"', '"+ nameEdit.getText() +"')\"}");
             while(wb.data.equals("None")){sleep(10);}
-            Log.e("Get DATA : ", wb.data);
             JSONObject json = null;
             try {
                 json = new JSONObject(wb.data);
@@ -114,11 +111,9 @@ public class SgininActivity extends AppCompatActivity {
             wb.data = "None";
             wb.send("{\"kind\":\"select\", \"message\" : \"select count(*) from user where user_id = '"+idEdit.getText()+"'\"}");
             while(wb.data.equals("None")){sleep(10);}
-            Log.e("Get DATA : ", wb.data);
             JSONObject json = null;
             try {
                 json = new JSONObject(wb.data);
-                Log.e("PARSE ", String.valueOf(json.getJSONArray("message").getJSONObject(0).getString("count(*)")));
                 isIdCheck = Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)"));
             } catch (JSONException e) {
                 e.printStackTrace();

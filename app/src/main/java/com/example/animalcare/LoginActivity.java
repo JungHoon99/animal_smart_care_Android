@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
             wb.data = "None";
             wb.send("{\"kind\":\"select\", \"message\" : \"select count(*) from user where user_id = '"+idEditText.getText()+"' and pw = '"+pwEditText.getText()+"'\"}");
             while(wb.data.equals("None")){sleep(10);}
-            Log.e("Get DATA : ", wb.data);
 
             JSONObject json = null;
             try {

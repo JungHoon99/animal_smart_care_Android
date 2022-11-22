@@ -37,8 +37,6 @@ public class putNextPageLinstener implements View.OnClickListener{
 
         Intent intent = new Intent(this.activ.getApplicationContext() , this.nextPage);
         for(int i=0; i<this.key.length;i++){
-            Log.e("Key ",this.key[i]);
-            Log.e("value ",this.value[i]);
             intent.putExtra(this.key[i], this.value[i]);
         }
         this.activ.startActivity(intent);

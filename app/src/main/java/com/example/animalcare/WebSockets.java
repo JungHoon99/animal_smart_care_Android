@@ -27,8 +27,6 @@ public class WebSockets extends WebSocketClient {
 
     @Override
     public void onTextReceived(String message) {
-        Log.i("WebSocket", "Message received");
-        Log.e("Web ", message);
         data = message;
     }
 

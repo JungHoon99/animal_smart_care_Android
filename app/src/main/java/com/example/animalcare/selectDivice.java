@@ -58,7 +58,6 @@ public class selectDivice extends AppCompatActivity {
         wb.data = "None";
         wb.send("{\"kind\":\"select\", \"message\" : \"select * from register where user_id = '"+getId+"'\"}");
         while(wb.data.equals("None")){sleep(10);}
-        Log.e("Get DATA : ", wb.data);
 
         JSONObject json = null;
         JSONArray deviceArray;
