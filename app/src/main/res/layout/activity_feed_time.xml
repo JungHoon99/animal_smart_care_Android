@@ -7,40 +7,19 @@
     tools:context=".FeedTimeActivity">
 
     <ScrollView
-        android:id="@+id/scrollView4"
-        android:layout_width="0dp"
+        android:layout_width="409dp"
         android:layout_height="608dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck">
 
-        <TableLayout
-            android:id="@+id/FeedTable"
+        <LinearLayout
+            android:id="@+id/timeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="*">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <ToggleButton
-                    android:id="@+id/toggleButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ToggleButton" />
-
-                <ToggleButton
-                    android:id="@+id/toggleButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ToggleButton" />
-
-            </TableRow>
-        </TableLayout>
+            android:orientation="vertical" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

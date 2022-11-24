@@ -5,20 +5,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *  ToDo :  식수 및 사료 제공 시간 설정 db 가져오기
@@ -29,86 +36,28 @@ public class FeedTimeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_time);
-        addLine("On","On","8:30");
-        addLine("On","On","12:30");
-        addLine("On","On","18:30");
-        createTimeAddLine();
+        MakeLine();
     }
 
-    private void createTimeAddLine(){
-        String[] min = new String[]{"0", "5", "10", "15", "20", "25", "30", "35", "40", "50", "55"};
-        TableLayout feedTableLayout = (TableLayout) findViewById(R.id.FeedTable);
+    private void MakeLine(){
+        LinearLayout Timer = findViewById(R.id.timeView);
+        LinearLayout Line = new LinearLayout(this);
 
-        TableRow tableRow = new TableRow(this);     // tablerow 생성
-        tableRow.setLayoutParams(new TableRow.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Line.setOrientation(LinearLayout.HORIZONTAL);
 
-        ToggleButton waterToggle =new ToggleButton(this);
-        waterToggle.setTextOn("water on");
-        waterToggle.setTextOff("water off");
-        waterToggle.setText(0);
-        tableRow.addView(waterToggle);
+        TextInputLayout TestDrop = new TextInputLayout(this);
+        TestDrop.setHint("Hour");
+        TestDrop.setMinWidth(200);
+        TestDrop.setMinimumHeight(50);
+        AutoCompleteTextView hourAuto = new AutoCompleteTextView(this);
+        TestDrop.addView(hourAuto);
 
-        ToggleButton feedToggle = new ToggleButton(this);
-        feedToggle.setTextOn("feed on");
-        feedToggle.setTextOff("feed off");
-        feedToggle.setText(0);
-        tableRow.addView(feedToggle);
+        String[] items = {"item1", "item2", "item3", "item4", "item5"};
+        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(FeedTimeActivity.this,
+                R.layout.activity_feed_time, items);
+        hourAuto.setAdapter(itemAdapter);
 
-        Spinner minSpinner =new Spinner(this);
-
-        /**
-         *  Todo spinner 공부하기 꼭
-         */
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//                this,
-//                R.layout.activity_feed_time,
-//                min);
-
-        minSpinner.setAdapter(adapter);
-        minSpinner.setSelection(0);
-        tableRow.addView(minSpinner);
-
-//        NumberPicker hourPicker = new NumberPicker(this);
-//        hourPicker.setMaxValue(23);
-//        hourPicker.setMinValue(0);
-//        hourPicker.setValue(12);
-//        tableRow.addView(hourPicker);
-//
-//        NumberPicker minPicker = new NumberPicker(this);
-//        minPicker.setDisplayedValues(min);
-//        tableRow.addView(hourPicker);
-
-        feedTableLayout.addView(tableRow);
-    }
-
-    protected void addLine(String feed, String water, String time){
-        TableLayout feedTableLayout = (TableLayout) findViewById(R.id.FeedTable);
-
-        String Item[] = new String[]{feed,water,time};
-
-        TableRow tableRow = new TableRow(this);     // tablerow 생성
-        tableRow.setLayoutParams(new TableRow.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        for(int i = 0 ; i < Item.length ; i++) {
-            TextView textView = new TextView(this);
-            textView.setText(Item[i]);
-            textView.setGravity(Gravity.CENTER);
-            textView.setTextSize(20.0F);
-            tableRow.addView(textView);		// tableRow에 view 추가
-        }
-
-        Button deleteTableButton = new Button(this);
-
-        deleteTableButton.setText("Del");
-        deleteTableButton.setTextSize(20);
-        deleteTableButton.setGravity(Gravity.CENTER);
-        tableRow.addView(deleteTableButton);
-        feedTableLayout.addView(tableRow);		// tableLayout에 tableRow 추가
-
+        Line.addView(TestDrop);
+        Timer.addView(Line);
     }
 }

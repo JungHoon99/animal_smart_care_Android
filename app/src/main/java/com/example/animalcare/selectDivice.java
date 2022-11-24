@@ -4,17 +4,12 @@ import static android.os.SystemClock.sleep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,7 +40,7 @@ public class selectDivice extends AppCompatActivity {
         Intent intents = getIntent();
         String getId = String.valueOf(intents.getStringExtra("id"));
         try {
-            uri = new URI("ws://3.39.204.82:59552");
+            uri = new URI("ws://13.209.111.12:50317");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -79,7 +74,7 @@ public class selectDivice extends AppCompatActivity {
      private void deviceAddButton(){
          Intent intents = getIntent();
          String getId = String.valueOf(intents.getStringExtra("id"));
-         LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear);
+         LinearLayout linear = (LinearLayout) findViewById(R.id.timeView);
          Button deviceAddButton = new Button(this);
          deviceAddButton.setText("+");
          deviceAddButton.setTextSize(30.0F);
@@ -96,7 +91,7 @@ public class selectDivice extends AppCompatActivity {
      * @param State String
      */
     private void AddDeviceLine(String deviceId, String PetName, int PetAge, String State){
-        LinearLayout linear = (LinearLayout) findViewById(R.id.mainLinear);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.timeView);
 
         FrameLayout f1 = new FrameLayout(this);     //새로운 FrameLayout 생성
         f1.setBackgroundResource(R.drawable.setboxborder1dp);   //FrameLayout에 네모 생성

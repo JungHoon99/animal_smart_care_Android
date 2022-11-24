@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{"deviceId"},
                 new String[]{getIntent().getStringExtra("deviceId")}
         ));
-        createWebSocketClient("ws://3.39.204.82:51698/");
+        createWebSocketClient("ws://13.209.111.12:54270/");
 
         feedButton.setOnClickListener(new View.OnClickListener() {
             @Override
