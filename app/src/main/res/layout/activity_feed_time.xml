@@ -17,9 +17,51 @@
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
-            android:id="@+id/timeView"
+            android:id="@+id/timesView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/createTimeLinear"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/hourSpinner"
+                    android:layout_width="85dp"
+                    android:layout_height="48dp"
+                    android:entries="@array/hour" />
+
+                <Spinner
+                    android:id="@+id/minSpinner"
+                    android:layout_width="85dp"
+                    android:layout_height="48dp"
+                    android:entries="@array/min" />
+
+                <Switch
+                    android:id="@+id/waterSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="water" />
+
+                <Switch
+                    android:id="@+id/feedSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="feed" />
+
+                <Button
+                    android:id="@+id/updateBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="확인" />
+
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
