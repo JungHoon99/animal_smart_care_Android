@@ -40,7 +40,7 @@ public class selectDivice extends AppCompatActivity {
         Intent intents = getIntent();
         String getId = String.valueOf(intents.getStringExtra("id"));
         try {
-            uri = new URI("ws://13.209.111.12:50317");
+            uri = new URI("wss://animal-service.run.goorm.io/");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -74,7 +74,7 @@ public class selectDivice extends AppCompatActivity {
      private void deviceAddButton(){
          Intent intents = getIntent();
          String getId = String.valueOf(intents.getStringExtra("id"));
-         LinearLayout linear = (LinearLayout) findViewById(R.id.timeView);
+         LinearLayout linear = (LinearLayout) findViewById(R.id.timesView);
          Button deviceAddButton = new Button(this);
          deviceAddButton.setText("+");
          deviceAddButton.setTextSize(30.0F);
@@ -91,7 +91,7 @@ public class selectDivice extends AppCompatActivity {
      * @param State String
      */
     private void AddDeviceLine(String deviceId, String PetName, int PetAge, String State){
-        LinearLayout linear = (LinearLayout) findViewById(R.id.timeView);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.timesView);
 
         FrameLayout f1 = new FrameLayout(this);     //새로운 FrameLayout 생성
         f1.setBackgroundResource(R.drawable.setboxborder1dp);   //FrameLayout에 네모 생성

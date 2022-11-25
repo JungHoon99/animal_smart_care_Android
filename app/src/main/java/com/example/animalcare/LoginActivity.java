@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onClick(View view) {
             URI uri = null;
             try {
-                uri = new URI("ws://13.209.111.12:50317");
+                uri = new URI("wss://animal-service.run.goorm.io/");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -56,16 +56,15 @@ public class LoginActivity extends AppCompatActivity {
             wb.data = "None";
             wb.send("{\"kind\":\"select\", \"message\" : \"select count(*) from user where user_id = '"+idEditText.getText()+"' and pw = '"+pwEditText.getText()+"'\"}");
             while(wb.data.equals("None")){sleep(10);}
-
             JSONObject json = null;
             try {
                 json = new JSONObject(wb.data);
                 if(Integer.parseInt(json.getJSONArray("message").getJSONObject(0).getString("count(*)")) == 1) {
                     Intent intent = new Intent(getApplicationContext(), selectDivice.class);
                     String getTexts = String.valueOf(idEditText.getText());
+                    Log.e("data", getTexts);
                     intent.putExtra("id", getTexts);
                     startActivity(intent);
-                    wb.close();
                 }
                 else{
                     AlertDialog.Builder myAlertBuilder = new AlertDialog.Builder(    LoginActivity.this);
@@ -82,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
 
         }
-            wb.close();
         }
     }
 }

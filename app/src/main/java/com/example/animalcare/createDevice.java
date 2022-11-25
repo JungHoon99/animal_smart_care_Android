@@ -40,7 +40,7 @@ public class createDevice extends AppCompatActivity {
             URI uri = null;
 
             try {
-                uri = new URI("ws://13.209.111.12:50317/");
+                uri = new URI("wss://animal-service.run.goorm.io/");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -103,7 +103,7 @@ public class createDevice extends AppCompatActivity {
         public void onClick(View view) {
             URI uri = null;
             try {
-                uri = new URI("ws://13.209.111.12:50317/");
+                uri = new URI("wss://animal-service.run.goorm.io/");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }

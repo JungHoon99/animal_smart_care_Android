@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{"deviceId"},
                 new String[]{getIntent().getStringExtra("deviceId")}
         ));
-        createWebSocketClient("ws://13.209.111.12:54270/");
+        createWebSocketClient("wss://animal-video.run.goorm.io/");
 
         feedButton.setOnClickListener(new View.OnClickListener() {
             @Override
