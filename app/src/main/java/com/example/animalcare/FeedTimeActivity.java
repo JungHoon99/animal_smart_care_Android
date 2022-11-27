@@ -1,8 +1,11 @@
 package com.example.animalcare;
 
+import static android.os.SystemClock.sleep;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -14,23 +17,35 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  *  ToDo :  식수 및 사료 제공 시간 설정 db 가져오기
  *          삭제 기능 만들기
  */
 public class FeedTimeActivity extends AppCompatActivity {
+    private int LINECOUNTER = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_time);
         Button updateBtn = (Button) findViewById(R.id.updateBtn);
-
         updateBtn.setOnClickListener(new updateOnClickListenser());
+
+        try {
+            LoadDataLine();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    class updateOnClickListenser implements View.OnClickListener{
-
+    private class updateOnClickListenser implements View.OnClickListener{
         @Override
         public void onClick(View view) {
             Spinner hourSpinner =(Spinner) findViewById(R.id.hourSpinner);
@@ -43,12 +58,51 @@ public class FeedTimeActivity extends AppCompatActivity {
 
             waterSwitch.isChecked();    //  switch의 현재 상태 가져오기 눌러있으면 true값 반환
             feedSwitch.isChecked();     //  아니면 false 반환
-            MakeLine(hourSpinner.getSelectedItem().toString(), minSpinner.getSelectedItem().toString(),
+            MakeLine("Null",hourSpinner.getSelectedItem().toString(), minSpinner.getSelectedItem().toString(),
                     waterSwitch.isChecked() ? 1:0, feedSwitch.isChecked() ? 1:0);
         }
     }
 
-    private void MakeLine(String hour, String min, int water, int food){
+    private void LoadDataLine() throws JSONException {
+        URI uri = null;
+        Intent intents = getIntent();
+        String getId = String.valueOf(intents.getStringExtra("deviceId"));
+        try {
+            uri = new URI("wss://animal-service.run.goorm.io/");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        WebSockets wb = new WebSockets(uri,"None");
+        wb.connect();
+        wb.send("{\"code\":\"phone\"}");
+
+        while(wb.data.equals("None")){sleep(10);}
+        wb.data = "None";
+        wb.send(String.format(
+                "{\"kind\":\"select\", \"message\" : \"select f.time_id as tid ,f.water as water, f.feed as feed, t.hour as hour, t.min as min " +
+                                                        "from feed_time as f inner join time_slot as t on f.time_id = t.time_id " +
+                                                        "where device_id = '%s';\"}", getId));
+        while(wb.data.equals("None")){sleep(10);}
+
+        JSONObject json = null;
+        JSONArray timeArray;
+
+        try {
+            json = new JSONObject(wb.data);
+            timeArray = json.getJSONArray("message");
+            for(int i=0; i<timeArray.length(); i++){
+                json = timeArray.getJSONObject(i);
+                MakeLine(json.getString("tid"),json.getString("hour"),json.getString("min"), json.getInt("water"), json.getInt("min"));
+            }
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
+        }
+
+        wb.close();
+    }
+
+    private void MakeLine(String tid, String hour, String min, int water, int food){
         LinearLayout linear = (LinearLayout) findViewById(R.id.timesView);
 
         LinearLayout newLinear = new LinearLayout(this);
@@ -85,10 +139,19 @@ public class FeedTimeActivity extends AppCompatActivity {
         newLinear.addView(minText,Params);
         newLinear.addView(DelBtn);
 
+        DelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                linear.removeView(newLinear);
+                LINECOUNTER--;
+            }
+        });
+
         newLinear.setMinimumHeight(dpToPx(this,45));
 
-        linear.addView(newLinear,0);
+        linear.addView(newLinear,LINECOUNTER);
 
+        LINECOUNTER++;
     }
 
     /**
