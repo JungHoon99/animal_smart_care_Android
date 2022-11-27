@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -24,10 +25,6 @@ import org.json.JSONObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- *  ToDo :  식수 및 사료 제공 시간 설정 db 가져오기
- *          삭제 기능 만들기
- */
 public class FeedTimeActivity extends AppCompatActivity {
     private int LINECOUNTER = 0;
     @Override
@@ -48,20 +45,29 @@ public class FeedTimeActivity extends AppCompatActivity {
     private class updateOnClickListenser implements View.OnClickListener{
         @Override
         public void onClick(View view) {
+            String tid;
             Spinner hourSpinner =(Spinner) findViewById(R.id.hourSpinner);
             Spinner minSpinner =(Spinner) findViewById(R.id.minSpinner);
             Switch waterSwitch = (Switch) findViewById(R.id.waterSwitch);
             Switch feedSwitch = (Switch) findViewById(R.id.feedSwitch);
 
-            hourSpinner.getSelectedItem().toString();   // Spinner의 선택한 아이템 값 string으로 가져오기
-            minSpinner.getSelectedItem().toString();
+            String hour = hourSpinner.getSelectedItem().toString();   // Spinner의 선택한 아이템 값 string으로 가져오기
+            String min = minSpinner.getSelectedItem().toString();
 
             waterSwitch.isChecked();    //  switch의 현재 상태 가져오기 눌러있으면 true값 반환
             feedSwitch.isChecked();     //  아니면 false 반환
-            MakeLine("Null",hourSpinner.getSelectedItem().toString(), minSpinner.getSelectedItem().toString(),
+
+            tid = "0"+Character.toString((char)('A'+Integer.parseInt(hour)))+
+                    Character.toString((char)('A'+(Integer.parseInt(min)/5)));
+
+            insertFeedTime(tid, waterSwitch.isChecked() ? 1:0, feedSwitch.isChecked() ? 1:0);
+
+            MakeLine(tid,hourSpinner.getSelectedItem().toString(), minSpinner.getSelectedItem().toString(),
                     waterSwitch.isChecked() ? 1:0, feedSwitch.isChecked() ? 1:0);
         }
     }
+
+
 
     private void LoadDataLine() throws JSONException {
         URI uri = null;
@@ -93,7 +99,7 @@ public class FeedTimeActivity extends AppCompatActivity {
             timeArray = json.getJSONArray("message");
             for(int i=0; i<timeArray.length(); i++){
                 json = timeArray.getJSONObject(i);
-                MakeLine(json.getString("tid"),json.getString("hour"),json.getString("min"), json.getInt("water"), json.getInt("min"));
+                MakeLine(json.getString("tid"),json.getString("hour"),json.getString("min"), json.getInt("water"), json.getInt("feed"));
             }
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
@@ -142,6 +148,25 @@ public class FeedTimeActivity extends AppCompatActivity {
         DelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                URI uri = null;
+                Intent intents = getIntent();
+                String getId = String.valueOf(intents.getStringExtra("deviceId"));
+
+                try {
+                    uri = new URI("wss://animal-service.run.goorm.io/");
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+
+                WebSockets wb = new WebSockets(uri,"None");
+                wb.connect();
+                wb.send("{\"code\":\"phone\"}");
+
+                while(wb.data.equals("None")){sleep(10);}
+                wb.data = "None";
+                wb.send(String.format(
+                        "{\"kind\":\"insert\", \"message\" : \"delete from feed_time where device_id = '%s' and time_id = '%s';\"}",getId, tid));
+                while(wb.data.equals("None")){sleep(10);}
                 linear.removeView(newLinear);
                 LINECOUNTER--;
             }
@@ -152,6 +177,35 @@ public class FeedTimeActivity extends AppCompatActivity {
         linear.addView(newLinear,LINECOUNTER);
 
         LINECOUNTER++;
+    }
+
+    /**
+     * @apiNote Database insert data function
+     * @param time_id : String
+     * @param water : int
+     * @param feed  : int
+     */
+    private void insertFeedTime(String time_id, int water, int feed){
+        URI uri = null;
+        Intent intents = getIntent();
+        String getId = String.valueOf(intents.getStringExtra("deviceId"));
+
+        try {
+            uri = new URI("wss://animal-service.run.goorm.io/");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        WebSockets wb = new WebSockets(uri,"None");
+        wb.connect();
+        wb.send("{\"code\":\"phone\"}");
+
+        while(wb.data.equals("None")){sleep(10);}
+        wb.data = "None";
+        wb.send(String.format(
+                "{\"kind\":\"insert\", \"message\" : \"insert into feed_time(device_id, time_id, water, feed) " +
+                        "value('%s', '%s', %d, %d);\"}", getId, time_id, water, feed));
+        while(wb.data.equals("None")){sleep(10);}
     }
 
     /**
