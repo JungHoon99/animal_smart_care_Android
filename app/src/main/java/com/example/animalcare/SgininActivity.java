@@ -48,7 +48,7 @@ public class SgininActivity extends AppCompatActivity {
         public void onClick(View view) {
             URI uri = null;
             try {
-                uri = new URI("wss://animal-service.run.goorm.io");
+                uri = new URI("wss://animal-service.run.goorm.io/");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -97,7 +97,7 @@ public class SgininActivity extends AppCompatActivity {
         public void onClick(View view) {
             URI uri = null;
             try {
-                uri = new URI("wss://animal-service.run.goorm.io");
+                uri = new URI("wss://animal-service.run.goorm.io/");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
