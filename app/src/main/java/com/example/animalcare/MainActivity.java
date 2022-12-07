@@ -1,5 +1,6 @@
 package com.example.animalcare;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
@@ -27,9 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //가로 모드 화면 고정
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         Button timeButton = (Button) findViewById(R.id.feedTimrBtn);
         Button feedButton = (Button) findViewById(R.id.feedBtn);
         Button waterButton = (Button) findViewById(R.id.waterBtn);
